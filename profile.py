@@ -304,7 +304,7 @@ node2_nodeb1_if.addAddress(rspec.IPv4Address("192.168.1.3", "255.255.255.0"))
 nodeb1_link.addInterface(node2_nodeb1_if)
 
 #UE3
-node3 = request.RawPC( "UE2" )
+node3 = request.RawPC( "UE3" )
 node3.hardware_type = "d430"
 node3.component_manager_id = COMP_MANAGER_ID
 node3.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
