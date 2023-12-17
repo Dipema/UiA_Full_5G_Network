@@ -246,26 +246,42 @@ cn_node.hardware_type = "d430"
 cn_node.component_manager_id = COMP_MANAGER_ID
 cn_node.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
 cn_if = cn_node.addInterface("cn-if")
-cn_if.addAddress(rspec.IPv4Address("192.168.2.2", "255.255.255.0"))
+cn_if.addAddress(rspec.IPv4Address("192.168.2.1", "255.255.255.0"))
 cn_link = request.Link("cn-link")
 cn_link.bandwidth = 10*1000*1000
 cn_link.addInterface(cn_if)
 
-#NodeB
-nodeb = request.RawPC( "gNodeB" )
-nodeb.hardware_type = "d430"
-nodeb.component_manager_id = COMP_MANAGER_ID
-nodeb.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
+#NodeB1
+nodeb1 = request.RawPC( "gNodeB1" )
+nodeb1.hardware_type = "d430"
+nodeb1.component_manager_id = COMP_MANAGER_ID
+nodeb1.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
 
-nodeb_cn_if = nodeb.addInterface("nodeb-cn-if")
-nodeb_cn_if.addAddress(rspec.IPv4Address("192.168.2.1", "255.255.255.0"))
-cn_link.addInterface(nodeb_cn_if)
+nodeb1_cn_if = nodeb1.addInterface("nodeb-cn-if")
+nodeb1_cn_if.addAddress(rspec.IPv4Address("192.168.2.2", "255.255.255.0"))
+cn_link.addInterface(nodeb1_cn_if)
 
-nodeb_if = nodeb.addInterface("nodeb-if")
-nodeb_if.addAddress(rspec.IPv4Address("192.168.1.1", "255.255.255.0"))
-nodeb_link = request.Link("nodeb-link")
-nodeb_link.bandwidth = 10*1000*1000
-nodeb_link.addInterface(nodeb_if)
+nodeb1_if = nodeb1.addInterface("nodeb1-if")
+nodeb1_if.addAddress(rspec.IPv4Address("192.168.1.1", "255.255.255.0"))
+nodeb1_link = request.Link("nodeb1-link")
+nodeb1_link.bandwidth = 10*1000*1000
+nodeb1_link.addInterface(nodeb1_if)
+
+#NodeB2
+nodeb2 = request.RawPC( "gNodeB2" )
+nodeb2.hardware_type = "d430"
+nodeb2.component_manager_id = COMP_MANAGER_ID
+nodeb2.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
+
+nodeb2_cn_if = nodeb2.addInterface("nodeb-cn-if")
+nodeb2_cn_if.addAddress(rspec.IPv4Address("192.168.2.3", "255.255.255.0"))
+cn_link.addInterface(nodeb2_cn_if)
+
+nodeb2_if = nodeb2.addInterface("nodeb2-if")
+nodeb2_if.addAddress(rspec.IPv4Address("192.168.3.1", "255.255.255.0"))
+nodeb2_link = request.Link("nodeb2-link")
+nodeb2_link.bandwidth = 10*1000*1000
+nodeb2_link.addInterface(nodeb2_if)
 
 #UE1
 node1 = request.RawPC( "UE1" )
@@ -273,9 +289,9 @@ node1.hardware_type = "d430"
 node1.component_manager_id = COMP_MANAGER_ID
 node1.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
 
-node1_nodeb_if = node1.addInterface("node1-nodeb-if")
-node1_nodeb_if.addAddress(rspec.IPv4Address("192.168.1.2", "255.255.255.0"))
-nodeb_link.addInterface(node1_nodeb_if)
+node1_nodeb1_if = node1.addInterface("node1-nodeb1-if")
+node1_nodeb1_if.addAddress(rspec.IPv4Address("192.168.1.2", "255.255.255.0"))
+nodeb1_link.addInterface(node1_nodeb1_if)
 
 #UE2
 node2 = request.RawPC( "UE2" )
@@ -283,9 +299,19 @@ node2.hardware_type = "d430"
 node2.component_manager_id = COMP_MANAGER_ID
 node2.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
 
-node2_nodeb_if = node2.addInterface("node2-nodeb-if")
-node2_nodeb_if.addAddress(rspec.IPv4Address("192.168.1.3", "255.255.255.0"))
-nodeb_link.addInterface(node2_nodeb_if)
+node2_nodeb1_if = node2.addInterface("node2-nodeb1-if")
+node2_nodeb1_if.addAddress(rspec.IPv4Address("192.168.1.3", "255.255.255.0"))
+nodeb1_link.addInterface(node2_nodeb1_if)
+
+#UE3
+node3 = request.RawPC( "UE2" )
+node3.hardware_type = "d430"
+node3.component_manager_id = COMP_MANAGER_ID
+node3.disk_image = "urn:publicid:IDN+emulab.net+image+OAI2021FallWS:oai-cn5g-docker"
+
+node3_nodeb2_if = node2.addInterface("node3-nodeb2-if")
+node3_nodeb2_if.addAddress(rspec.IPv4Address("192.168.3.2", "255.255.255.0"))
+nodeb2_link.addInterface(node3_nodeb2_if)
 
 tour = IG.Tour()
 tour.Description(IG.Tour.MARKDOWN, tourDescription)
